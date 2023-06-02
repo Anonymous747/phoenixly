@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%4=%-!m=!q7ul8@(^7=(=l949yl59$&4q91ti5n4@9hqndq3ee
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'library',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'phoenixly.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
