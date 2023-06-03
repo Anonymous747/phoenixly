@@ -23,3 +23,14 @@ services:
       - POSTGRES_HOST=postgres
     depends_on:
       - postgres
+  nginx:
+    image: nginx:1.19.8-alpine
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - static_data:/var/www/html/static
+      - ./nginx-config:/etc/nginx/nginx-config
+volumes:
+  static_data:
