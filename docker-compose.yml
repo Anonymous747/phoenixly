@@ -1,5 +1,16 @@
 version: "3.7"
 services:
+  postgres:
+    container_name: test-db
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    volumes:
+      - ./.var/postgresql:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
   app:
     container_name: phoenixly-app
     build: .
@@ -8,3 +19,7 @@ services:
       - .:/app
     ports:
       - "8000:8000"
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
