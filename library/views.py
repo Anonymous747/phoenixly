@@ -7,12 +7,10 @@ from .models import Collection
 from .serializer import CollectionSerializer
 
 
-# Create your views here.
-
-@api_view(['GET', 'POST'])
 def collection_list(request):
+    print('Gel in')
     if request.method == 'GET':
-        data = get_object_or_404(Collection.objects.all())
+        data = Collection.objects.all()
         serializer = CollectionSerializer(data)
         return Response(serializer.data)
     elif request.method == "POST":

@@ -5,4 +5,4 @@ from .models import Collection
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        friends = ('name', 'shareLink')
+        fields = ('__all__')
