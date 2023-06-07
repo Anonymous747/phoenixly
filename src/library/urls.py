@@ -6,8 +6,8 @@ from src.library.views import CollectionsView
 router = routers.DefaultRouter()
 router.register('collections', CollectionsView, basename='collections')
 
-# urlpatterns = [
-#     path('', include(router.urls))
-# ]
+urlpatterns = [
+    path('', include(router.urls))
+]
 
-urlpatterns = router.urls
+urlpatterns += router.urls
