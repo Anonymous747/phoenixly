@@ -3,6 +3,16 @@ from django.db import models
 
 # Create your models here.
 
+
+class Tag(models.Model):
+    text = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return 'Tag[id: {id}, text: {text}]'.format(
+            id=self.id, text=self.text
+        )
+
+
 class Collection(models.Model):
     name = models.CharField(max_length=20)
     shareLink = models.CharField(max_length=40)
@@ -38,6 +48,7 @@ class Note(models.Model):
     parent_document_id = models.TextField(max_length=20)
     title = models.TextField(max_length=30, default='')
     body = models.TextField(default='')
+    tags = models.ManyToManyField(Tag, related_name='notes')
 
     def __str__(self):
-        return self.title
+        return 'Library[id: {id}, name: {title}]'.format(id=self.id, title=self.title)

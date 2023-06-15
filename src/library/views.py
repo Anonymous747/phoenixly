@@ -1,10 +1,17 @@
 from rest_framework import mixins
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import AllowAny
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-from .models import Collection, Folder, Document, Note
+from .models import Collection, Folder, Document, Note, Tag
 from .serializer import CollectionSerializer, FolderSerializer, \
-    DocumentSerializer, NoteSerializer
+    DocumentSerializer, NoteSerializer, TagSerializer
 from src.core.permissions import CollectionPermission
+
+
+class TagViewSet(ModelViewSet):
+    permission_classes = (AllowAny,)
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
 
 
 class CollectionsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
@@ -42,6 +49,7 @@ class DocumentsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewS
 
 
 class NotesView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
+    permission_classes = (AllowAny,)
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
 
