@@ -1,9 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
-
-
 class Tag(models.Model):
     text = models.CharField(max_length=64, unique=True)
 
@@ -13,21 +10,14 @@ class Tag(models.Model):
         )
 
 
-class Collection(models.Model):
-    name = models.CharField(max_length=20)
-    shareLink = models.CharField(max_length=40)
+class Note(models.Model):
+    parent_document_id = models.TextField(max_length=20)
+    title = models.TextField(max_length=30, default='')
+    body = models.TextField(default='')
+    tags = models.ManyToManyField(Tag, related_name='notes')
 
     def __str__(self):
-        return self.name
-
-
-class Folder(models.Model):
-    name = models.CharField(max_length=20)
-    parent_collection_id = models.TextField(max_length=20)
-    parent_folder = models.TextField(max_length=20)
-
-    def __str__(self):
-        return self.name
+        return 'Note[id: {id}, name: {title}]'.format(id=self.id, title=self.title)
 
 
 class Document(models.Model):
@@ -44,11 +34,18 @@ class Document(models.Model):
         return self.name
 
 
-class Note(models.Model):
-    parent_document_id = models.TextField(max_length=20)
-    title = models.TextField(max_length=30, default='')
-    body = models.TextField(default='')
-    tags = models.ManyToManyField(Tag, related_name='notes')
+class Folder(models.Model):
+    name = models.CharField(max_length=20)
+    parent_collection_id = models.ManyToManyField(Document, related_name="folder")
+    parent_folder = models.TextField(max_length=20)
 
     def __str__(self):
-        return 'Library[id: {id}, name: {title}]'.format(id=self.id, title=self.title)
+        return self.name
+
+
+class Collection(models.Model):
+    name = models.CharField(max_length=20)
+    shareLink = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name

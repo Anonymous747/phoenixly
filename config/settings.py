@@ -26,7 +26,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"] # TODO: Try to use hostname for localhost
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

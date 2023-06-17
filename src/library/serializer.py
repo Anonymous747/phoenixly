@@ -8,7 +8,7 @@ class TagSerializer(serializers.ModelSerializer):
     tags = SlugRelatedField(
         many=True,
         queryset=Tag.objects.all(),
-        slug_field='name'
+        slug_field='text'
     )
 
     class Meta:
@@ -16,15 +16,16 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ('text', 'tags')
 
 
-class CollectionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Collection
-        fields = '__all__'
+class NoteSerializer(serializers.ModelSerializer):
+    tags = serializers.SlugRelatedField(
+        many=True,
+        queryset=Tag.objects.all(),
+        slug_field='notes'
+    )
 
-
-class FolderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Folder
+        ordering = ['-id']
+        model = Note
         fields = '__all__'
 
 
@@ -34,13 +35,13 @@ class DocumentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class NoteSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(
-        many=True,
-        queryset=Tag.objects.all(),
-        slug_field='title'
-    )
-
+class FolderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Note
+        model = Folder
+        fields = '__all__'
+
+
+class CollectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Collection
         fields = '__all__'
