@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import CASCADE
 
 
 class Tag(models.Model):
@@ -14,7 +15,7 @@ class Note(models.Model):
     parent_document_id = models.TextField(max_length=20)
     title = models.TextField(max_length=30, default='')
     body = models.TextField(default='')
-    tags = models.ManyToManyField(Tag, related_name='notes')
+    tags = models.ForeignKey(Tag, related_name='notes', on_delete=CASCADE, default=1)
 
     def __str__(self):
         return 'Note[id: {id}, name: {title}]'.format(id=self.id, title=self.title)
@@ -26,8 +27,8 @@ class Document(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, auto_created=True)
     date_modified = models.DateTimeField(auto_now_add=True, auto_created=True)
     language = models.CharField(max_length=4)
+    tags = models.ForeignKey(Tag, related_name='documents',  on_delete=CASCADE, default=2)
 
-    # TODO: tags
     # TODO: related
 
     def __str__(self):

@@ -38,6 +38,7 @@ class FoldersView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet
 
 
 class DocumentsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
+    permission_classes = (AllowAny,)
     serializer_class = DocumentSerializer
     queryset = Document.objects.all()
 
