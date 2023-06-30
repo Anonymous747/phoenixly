@@ -3,18 +3,16 @@ services:
   postgres:
     container_name: phoenixly-db
     image: postgres:12-alpine
-    environment:
-      - POSTGRES_DB
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
+    env_file:
+      - config/.env
     volumes:
       - ./.var/postgresql:/var/lib/postgresql/data
     ports:
-      - "5435:5432"
+      - "5436:5432"
   app:
     container_name: phoenixly-app
+    command: bash entrypoint.sh
     build: .
-    command:  gunicorn --workers=3 --bind=0.0.0.0:8000 config.wsgi:application
     volumes:
       - .:/app
     ports:

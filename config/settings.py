@@ -23,7 +23,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"] # TODO: Try to use hostname for localhost
+ALLOWED_HOSTS = [] # TODO: Try to use hostname for localhost
 
 INSTALLED_APPS = [
     'django.contrib.admin',
