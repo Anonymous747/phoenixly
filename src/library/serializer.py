@@ -5,23 +5,23 @@ from .models import Collection, Folder, Document, Note, Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
-    tags = SlugRelatedField(
-        many=True,
-        queryset=Tag.objects.all(),
-        slug_field='text'
-    )
+    # text = SlugRelatedField(
+    #     many=True,
+    #     queryset=Tag.objects.all(),
+    #     slug_field='text'
+    # )
 
     class Meta:
         model = Tag
-        fields = ('text', 'tags')
+        fields = ('text',)
 
 
 class NoteSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(
-        many=True,
-        queryset=Tag.objects.all(),
-        slug_field='notes'
-    )
+    # tags = serializers.SlugRelatedField(
+    #     many=True,
+    #     queryset=Note.objects.filter(tags__text='text'),
+    #     slug_field='notes'
+    # )
 
     class Meta:
         ordering = ['-id']

@@ -10,8 +10,8 @@ from src.core.permissions import CollectionPermission
 
 class TagViewSet(ModelViewSet):
     permission_classes = (AllowAny,)
-    queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    queryset = Tag.objects.all()
 
 
 class CollectionsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
