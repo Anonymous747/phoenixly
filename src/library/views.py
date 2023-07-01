@@ -15,7 +15,7 @@ class TagViewSet(ModelViewSet):
 
 
 class CollectionsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
-    permission_classes = (CollectionPermission,)
+    permission_classes = (AllowAny,)
     serializer_class = CollectionSerializer
     queryset = Collection.objects.all()
 
@@ -27,6 +27,7 @@ class CollectionsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericVie
 
 
 class FoldersView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
+    permission_classes = (AllowAny,)
     serializer_class = FolderSerializer
     queryset = Folder.objects.all()
 
