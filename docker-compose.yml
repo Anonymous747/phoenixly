@@ -15,6 +15,7 @@ services:
     build: .
     volumes:
       - .:/app
+      - static_files:/app/staticfiles
     ports:
       - "8000:8000"
     environment:
@@ -22,13 +23,15 @@ services:
     depends_on:
       - postgres
   nginx:
-    image: nginx:1.19.8-alpine
+    build:
+      context: ./nginx/
     depends_on:
       - app
     ports:
       - "80:80"
     volumes:
-      - static_data:/var/www/html/static
-      - ./nginx-config:/etc/nginx/nginx-config
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+      - static_files:/home/app/staticfiles
+
 volumes:
-  static_data:
+  static_files:
