@@ -12,4 +12,4 @@ COPY . /app/
 
 EXPOSE 8000
 
-RUN python manage.py collectstatic
+WORKDIR ./

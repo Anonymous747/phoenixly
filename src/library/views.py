@@ -1,5 +1,5 @@
 from rest_framework import mixins
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
 from .models import Collection, Folder, Document, Note, Tag
@@ -9,13 +9,13 @@ from src.core.permissions import CollectionPermission
 
 
 class TagViewSet(ModelViewSet):
-    permission_classes = (AllowAny,)
+    permission_classes = (CollectionPermission,)
     serializer_class = TagSerializer
     queryset = Tag.objects.all()
 
 
 class CollectionsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
-    permission_classes = (AllowAny,)
+    permission_classes = (CollectionPermission,)
     serializer_class = CollectionSerializer
     queryset = Collection.objects.all()
 
@@ -27,7 +27,7 @@ class CollectionsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericVie
 
 
 class FoldersView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
-    permission_classes = (AllowAny,)
+    permission_classes = (CollectionPermission,)
     serializer_class = FolderSerializer
     queryset = Folder.objects.all()
 
@@ -39,7 +39,7 @@ class FoldersView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet
 
 
 class DocumentsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
-    permission_classes = (AllowAny,)
+    permission_classes = (CollectionPermission,)
     serializer_class = DocumentSerializer
     queryset = Document.objects.all()
 
@@ -51,7 +51,7 @@ class DocumentsView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewS
 
 
 class NotesView(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
 

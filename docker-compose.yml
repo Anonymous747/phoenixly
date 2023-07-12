@@ -15,7 +15,7 @@ services:
     build: .
     volumes:
       - .:/app
-      - static_files:/app/staticfiles
+      - static:/app/static
     ports:
       - "8000:8000"
     environment:
@@ -31,7 +31,7 @@ services:
       - "80:80"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d/
-      - static_files:/home/app/staticfiles
+      - static:/app/static
 
 volumes:
-  static_files:
+  static:
