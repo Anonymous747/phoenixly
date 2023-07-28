@@ -4,7 +4,7 @@ pipeline {
         pollSCM '* * * * *'
     }
     stages {
-        stage('Initialize'){
+        stage('Initial'){
             def dockerHome = tool 'myDocker'
             env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
