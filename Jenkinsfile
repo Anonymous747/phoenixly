@@ -4,10 +4,10 @@ pipeline {
         pollSCM '* * * * *'
     }
     stages {
-        stage('Initial'){
-            def dockerHome = tool 'myDocker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
+//         stage('Initial'){
+//             def dockerHome = tool 'myDocker'
+//             env.PATH = "${dockerHome}/bin:${env.PATH}"
+//         }
         stage('Build') {
             steps {
                 echo "Building.."
