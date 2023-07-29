@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'python:3.10' }
+    agent any
     triggers {
         pollSCM '* * * * *'
     }
