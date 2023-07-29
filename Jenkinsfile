@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-        }
-    }
+    agent none
     triggers {
         pollSCM '* * * * *'
     }
@@ -13,13 +9,21 @@ pipeline {
 //             env.PATH = "${dockerHome}/bin:${env.PATH}"
 //         }
         stage('Build') {
+            agent {
+                docker {
+                    image 'python:3-alpine'
+                }
+            }
             steps {
-                echo "Building.."
-                sh '''
-
-                pip install -r requirements.txt
-                docker-compose up -d
-                '''
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'pip install --user -r requirements.txt'
+                    sh 'python WebChecker.py'
+                }
+            }
+            post {
+                always {
+                    junit 'output.xml'
+                }
             }
         }
         stage('Test') {
